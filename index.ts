@@ -57,3 +57,12 @@ export const remove = (key: any, storeName: string,
         }
     });
 }
+
+export const get = (key : any, storeName : string, databaseName : string) => {
+    getDatabaseTransaction(databaseName, storeName, (store) => {
+        let getRequest = store.get(key); 
+        getRequest.onsuccess = () => {
+            return getRequest.result; 
+        }
+    }); 
+}

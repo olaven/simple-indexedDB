@@ -51,3 +51,11 @@ exports.remove = function (key, storeName, databaseName, callback) {
         };
     });
 };
+exports.get = function (key, storeName, databaseName) {
+    getDatabaseTransaction(databaseName, storeName, function (store) {
+        var getRequest = store.get(key);
+        getRequest.onsuccess = function () {
+            return getRequest.result;
+        };
+    });
+};
