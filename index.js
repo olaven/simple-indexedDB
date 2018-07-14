@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+var es6_promise_1 = require("es6-promise");
 var getOpenDB = function (databaseName, callback) {
     try {
         var indexedDB = window.indexedDB; // || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
@@ -76,25 +77,37 @@ exports.remove = function (key, storeName, databaseName, callback) {
  * @param key key to get from
  * @param storeName store to get from
  * @param databaseName database to get from
+ * @returns {Promise}
  */
 exports.get = function (key, storeName, databaseName) {
-    getDatabaseTransaction(databaseName, storeName, function (store) {
-        var getRequest = store.get(key);
-        getRequest.onsuccess = function () {
-            return getRequest.result;
-        };
+    return new es6_promise_1.Promise(function (resolve, reject) {
+        getDatabaseTransaction(databaseName, storeName, function (store) {
+            var getRequest = store.get(key);
+            getRequest.onsuccess = function () {
+                resolve(getRequest.result);
+            };
+            getRequest.onerror = function () {
+                reject();
+            };
+        });
     });
 };
 /**
  * Get all data from store
  * @param storeName store to get from
  * @param databaseName database to get from
+ * @returns {Promise}
  */
 exports.getAll = function (storeName, databaseName) {
-    getDatabaseTransaction(databaseName, storeName, function (store) {
-        var getRequest = store.getAll();
-        getRequest.onsuccess = function () {
-            return getRequest.result;
-        };
+    return new es6_promise_1.Promise(function (resolve, reject) {
+        getDatabaseTransaction(databaseName, storeName, function (store) {
+            var getRequest = store.getAll();
+            getRequest.onsuccess = function () {
+                resolve(getRequest.result);
+            };
+            getRequest.onerror = function () {
+                reject();
+            };
+        });
     });
 };

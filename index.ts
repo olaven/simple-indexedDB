@@ -1,3 +1,5 @@
+import { Promise } from 'es6-promise'
+
 
 const getOpenDB = (databaseName: string,
     callback: (open: IDBOpenDBRequest) => void) => {
@@ -83,28 +85,40 @@ export const remove = (key: any, storeName: string,
  * @param key key to get from
  * @param storeName store to get from 
  * @param databaseName database to get from 
+ * @returns {Promise}
  */
-export const get = (key : any, storeName : string, databaseName : string) => {
-    getDatabaseTransaction(databaseName, storeName, (store) => {
-        let getRequest = store.get(key); 
-        getRequest.onsuccess = () => {
-            return getRequest.result; 
-        }
-    }); 
+export const get = (key: any, storeName: string, databaseName: string) => {
+    return new Promise((resolve, reject) => {
+        getDatabaseTransaction(databaseName, storeName, (store) => {
+            let getRequest = store.get(key);
+            getRequest.onsuccess = () => {
+                resolve(getRequest.result);
+            }
+            getRequest.onerror = () => {
+                reject();
+            }
+        });
+    });
 }
 
 /**
  * Get all data from store 
  * @param storeName store to get from 
  * @param databaseName database to get from 
+ * @returns {Promise}
  */
 export const getAll = (storeName: string, databaseName: string) => {
-    getDatabaseTransaction(databaseName, storeName, (store) => {
-        let getRequest = store.getAll(); 
-        getRequest.onsuccess = () => {
-            return getRequest.result;
-        }
-    });
+    return new Promise((resolve, reject) => {
+        getDatabaseTransaction(databaseName, storeName, (store) => {
+            let getRequest = store.getAll();
+            getRequest.onsuccess = () => {
+                resolve(getRequest.result);
+            }
+            getRequest.onerror = () => {
+                reject();
+            }
+        });
+    })
 }
 
 /**
@@ -113,8 +127,8 @@ export const getAll = (storeName: string, databaseName: string) => {
  * standard type definition
  */
 interface IDBObjectStore {
-    get(key : any): IDBRequest; 
+    get(key: any): IDBRequest;
     getAll(): IDBRequest;
-    put(data : any, key : any): IDBRequest; 
-    delete(key : string): IDBRequest; 
+    put(data: any, key: any): IDBRequest;
+    delete(key: string): IDBRequest;
 }

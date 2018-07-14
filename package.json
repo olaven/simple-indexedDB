@@ -5,5 +5,8 @@
   "main": "index.js",
   "repository": "https://github.com/olaven/simple-indexedDB.git",
   "author": "olaven <olavsundfoer@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@types/es6-promise": "^3.3.0"
+  }
 }
