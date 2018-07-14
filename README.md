@@ -1,6 +1,15 @@
 # simple-indexedDB
 Api for doing simple and intuitive operations towards indexedDB. 
 
+## Installation
+``` yarn add simple-indexeddb ```
+
+``` npm install simple-indexeddb ```
+
+``` js
+import {createStore, put, remove} from 'simple-indexeddb'; 
+```
+
 ## Creating the database 
 ``` js 
     createStore("myDatabase", "myStore");
