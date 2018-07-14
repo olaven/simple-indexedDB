@@ -107,3 +107,14 @@ export const getAll = (storeName: string, databaseName: string) => {
     });
 }
 
+/**
+ * Type definition for getAll(), as 
+ * the method is missing from the 
+ * standard type definition
+ */
+interface IDBObjectStore {
+    get(key : any): IDBRequest; 
+    getAll(): IDBRequest;
+    put(data : any, key : any): IDBRequest; 
+    delete(key : string): IDBRequest; 
+}
