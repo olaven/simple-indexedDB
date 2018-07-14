@@ -1,6 +1,6 @@
 {
   "name": "simple-indexeddb",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A simple wrapper for indexedDB ",
   "main": "index.js",
   "repository": "https://github.com/olaven/simple-indexedDB.git",
