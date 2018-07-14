@@ -79,7 +79,7 @@ export const remove = (key: any, storeName: string,
 }
 
 /**
- * Get data from database 
+ * Get data from store 
  * @param key key to get from
  * @param storeName store to get from 
  * @param databaseName database to get from 
@@ -92,3 +92,18 @@ export const get = (key : any, storeName : string, databaseName : string) => {
         }
     }); 
 }
+
+/**
+ * Get all data from store 
+ * @param storeName store to get from 
+ * @param databaseName database to get from 
+ */
+export const getAll = (storeName: string, databaseName: string) => {
+    getDatabaseTransaction(databaseName, storeName, (store) => {
+        let getRequest = store.getAll(); 
+        getRequest.onsuccess = () => {
+            return getRequest.result;
+        }
+    });
+}
+
