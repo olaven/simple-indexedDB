@@ -25,6 +25,11 @@ const getDatabaseTransaction = (databaseName: string,
     })
 }
 
+/**
+ * 
+ * @param databaseName name of database to create 
+ * @param storeName name of store to create
+ */
 export const createStore = (databaseName: string,
     storeName: string) => {
     getOpenDB(databaseName, openedDB => {
@@ -35,18 +40,33 @@ export const createStore = (databaseName: string,
     });
 }
 
+/**
+ * Put data (replace or add) into database 
+ * @param databaseName name of database 
+ * @param storeName name of store 
+ * @param data data to put 
+ * @param key key to replace
+ * @param callback callback requests the result 
+ */
 export const put = (databaseName: string,
-    storeName: string, data: any, keyProperty: string, callback: (result: any) => any) => {
+    storeName: string, data: any, key: string, callback: (result: any) => any) => {
     getDatabaseTransaction(databaseName, storeName, (store) => {
-        if (!data[keyProperty]) throw "invalid keyProperty. Has to be available on object, ie. 'id' -> addedData.id"
+        if (!data[key]) throw "invalid keyProperty. Has to be available on object, ie. 'id' -> addedData.id"
 
-        let addRequest = store.put(data, data[keyProperty]);
+        let addRequest = store.put(data, data[key]);
         addRequest.onsuccess = () => {
             if (callback) callback(addRequest.result);
         }
     });
 }
 
+/**
+ * Remove data from database 
+ * @param key key to remove 
+ * @param storeName store to remove from
+ * @param databaseName name of database 
+ * @param callback callback, result as response
+ */
 export const remove = (key: any, storeName: string,
     databaseName: string, callback: (result: any) => any) => {
     getDatabaseTransaction(databaseName, storeName, (store) => {
@@ -58,6 +78,12 @@ export const remove = (key: any, storeName: string,
     });
 }
 
+/**
+ * Get data from database 
+ * @param key key to get from
+ * @param storeName store to get from 
+ * @param databaseName database to get from 
+ */
 export const get = (key : any, storeName : string, databaseName : string) => {
     getDatabaseTransaction(databaseName, storeName, (store) => {
         let getRequest = store.get(key); 
