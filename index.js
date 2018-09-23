@@ -30,6 +30,7 @@ var getDatabaseTransaction = function (databaseName, storeName, callback) {
  * @param storeName name of store to create
  */
 exports.createStore = function (databaseName, storeName) {
+    console.log("Just a test change");
     getOpenDB(databaseName, function (openedDB) {
         openedDB.onupgradeneeded = function () {
             var db = openedDB.result;

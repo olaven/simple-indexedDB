@@ -6,6 +6,9 @@
   "repository": "https://github.com/olaven/simple-indexedDB.git",
   "author": "olaven <olavsundfoer@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "testProject": "tsc index.ts && npm pack && mv simple-indexeddb-1.0.5.tgz $HOME/Desktop/testprosjekt/"
+  }, 
   "dependencies": {
     "@types/es6-promise": "^3.3.0"
   }

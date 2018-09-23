@@ -1,3 +1,19 @@
+/**
+ * Pattern of indexedDB : https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB
+ * - create a 
+ *  - database 
+ *  - store 
+ * - get a transaction, do operations, and pass a callback when done. 
+ * 
+ * I think I want the following API: 
+ * create.database(name : string) // can be set to auto-increment? 
+ * create.store(name : string)
+ * do.put(key : any, value : any) // autoincrement, key not needed? 
+ * do.delete(key : any)
+ * do.add(key : key )
+ */
+
+
 import { Promise } from 'es6-promise'
 
 
@@ -34,6 +50,7 @@ const getDatabaseTransaction = (databaseName: string,
  */
 export const createStore = (databaseName: string,
     storeName: string) => {
+        console.log("Just a test change"); 
     getOpenDB(databaseName, openedDB => {
         openedDB.onupgradeneeded = () => {
             const db = openedDB.result;
