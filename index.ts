@@ -37,9 +37,27 @@ export const create = {
 
 export const add = {
     one : (key : any, value : any[]) => {
-
+        throw "not implemented";
     }, 
     several : (pairs : {key : any, value : any}[]) => {
+        throw "not implemented";
+    }
+}
 
+export const replace = {
+    one : (key : any, value : any[]) => {
+        throw "not implemented";
+    }, 
+    several : (pairs : {key : any, value : any}[]) => {
+        throw "not implemented";
+    }
+}
+
+export const get = {
+    one : (key : any) => {
+        throw "not implemented";
+    }, 
+    several : (keys : any[]) => {
+        throw "not implemented";
     }
 }
