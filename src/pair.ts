@@ -1,4 +1,4 @@
-type pair<T> = {
-    key : T, 
-    value : any
+export type pair = {
+    key : any; 
+    value : any; 
 }

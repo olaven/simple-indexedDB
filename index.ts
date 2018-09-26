@@ -18,28 +18,41 @@
  * get.one(key : any) // get the value with the specified key
  * get.all() : any[] // should this return key as well? 
  */
-
+/**
+ * Should add optional type checking to store-keys 
+ */
 
 import { Promise } from 'es6-promise'
+
+
+import { pair } from "./src/pair";
+
+
 
 export const create = {
     /**
      * Create a database with specified name. 
      * Throws error if already existing
+     * @param name name of the database
      */
     database : (name : string) => {
         throw "not implemented";
     }, 
-    store : (name : string) => {
+    /**
+    * Create a store in the database
+    * @param name name of the store
+    * @param database database where store should be added
+    */
+    store(name : string, database : string){
         throw "not implemented"
     }
 }
 
-export const add = {
+export const add : AddInterface = {
     one : (key : any, value : any[]) => {
         throw "not implemented";
     }, 
-    several : (pairs : {key : any, value : any}[]) => {
+    several : (pairs : pair[]) => {
         throw "not implemented";
     }
 }
@@ -48,16 +61,16 @@ export const replace = {
     one : (key : any, value : any[]) => {
         throw "not implemented";
     }, 
-    several : (pairs : {key : any, value : any}[]) => {
+    several : (pairs : pair[]) => {
         throw "not implemented";
     }
 }
 
 export const get = {
-    one : (key : any) => {
+    one : (key : string) => {
         throw "not implemented";
     }, 
-    several : (keys : any[]) => {
+    several : (keys : pair[]) => {
         throw "not implemented";
     }
 }

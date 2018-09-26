@@ -1,114 +1,59 @@
 "use strict";
-exports.__esModule = true;
-var es6_promise_1 = require("es6-promise");
-var getOpenDB = function (databaseName, callback) {
-    try {
-        var indexedDB = window.indexedDB; // || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
-        if (!indexedDB)
-            throw "indexedDB is not supported";
-        // opening (creating) database 
-        var open_1 = indexedDB.open(databaseName);
-        callback(open_1);
-    }
-    catch (error) {
-        console.error(error);
-    }
-};
-var getDatabaseTransaction = function (databaseName, storeName, callback) {
-    getOpenDB(databaseName, function (open) {
-        open.onsuccess = function (request) {
-            var db = open.result;
-            var transaction = db.transaction(storeName, "readwrite");
-            var store = transaction.objectStore(storeName);
-            callback(store);
-        };
-    });
-};
 /**
+ * Pattern of indexedDB : https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB
+ * - create a
+ *  - database
+ *  - store
+ * - get a transaction, do operations, and pass a callback when done.
  *
- * @param databaseName name of database to create
- * @param storeName name of store to create
+ * I think I want the following API:
+ *
+ * create.database(name : string) // can be set to auto-increment?
+ * create.store(name : string)
+ * add.one(key : any, value : any)
+ * add.several([key : any, value : any][])
+ * delete.one(key : any)
+ * delete.several([key : any][])
+ * replace.one(key : any, value : any)
+ * replace.several([key : any, value : any][])
+ * get.one(key : any) // get the value with the specified key
+ * get.all() : any[] // should this return key as well?
  */
-exports.createStore = function (databaseName, storeName) {
-    console.log("Just a test change");
-    getOpenDB(databaseName, function (openedDB) {
-        openedDB.onupgradeneeded = function () {
-            var db = openedDB.result;
-            db.createObjectStore(storeName);
-        };
-    });
+exports.__esModule = true;
+exports.create = {
+    /**
+     * Create a database with specified name.
+     * Throws error if already existing
+     */
+    database: function (name) {
+        console.log(exports.create.store("something"));
+        throw "not implemented";
+    },
+    store: function (name) {
+        throw "not implemented";
+    }
 };
-/**
- * Put data (replace or add) into database
- * @param databaseName name of database
- * @param storeName name of store
- * @param data data to put
- * @param key key to replace
- * @param callback callback requests the result
- */
-exports.put = function (databaseName, storeName, data, key, callback) {
-    getDatabaseTransaction(databaseName, storeName, function (store) {
-        if (!data[key])
-            throw "invalid keyProperty. Has to be available on object, ie. 'id' -> addedData.id";
-        var addRequest = store.put(data, data[key]);
-        addRequest.onsuccess = function () {
-            if (callback)
-                callback(addRequest.result);
-        };
-    });
+exports.add = {
+    one: function (key, value) {
+        throw "not implemented";
+    },
+    several: function (pairs) {
+        throw "not implemented";
+    }
 };
-/**
- * Remove data from database
- * @param key key to remove
- * @param storeName store to remove from
- * @param databaseName name of database
- * @param callback callback, result as response
- */
-exports.remove = function (key, storeName, databaseName, callback) {
-    getDatabaseTransaction(databaseName, storeName, function (store) {
-        //store.remove(key)
-        var removeRequest = store["delete"](key);
-        removeRequest.onsuccess = function () {
-            callback(removeRequest.result);
-        };
-    });
+exports.replace = {
+    one: function (key, value) {
+        throw "not implemented";
+    },
+    several: function (pairs) {
+        throw "not implemented";
+    }
 };
-/**
- * Get data from store
- * @param key key to get from
- * @param storeName store to get from
- * @param databaseName database to get from
- * @returns {Promise}
- */
-exports.get = function (key, storeName, databaseName) {
-    return new es6_promise_1.Promise(function (resolve, reject) {
-        getDatabaseTransaction(databaseName, storeName, function (store) {
-            var getRequest = store.get(key);
-            getRequest.onsuccess = function () {
-                resolve(getRequest.result);
-            };
-            getRequest.onerror = function () {
-                reject();
-            };
-        });
-    });
-};
-/**
- * Get all data from store
- * @param storeName store to get from
- * @param databaseName database to get from
- * @returns {Promise}
- */
-exports.getAll = function (storeName, databaseName) {
-    return new es6_promise_1.Promise(function (resolve, reject) {
-        getDatabaseTransaction(databaseName, storeName, function (store) {
-            var getRequest = store.getAll();
-            getRequest.onsuccess = function () {
-                resolve(getRequest.result);
-            };
-            getRequest.onerror = function () {
-                reject();
-            };
-        });
-    });
+exports.get = {
+    one: function (key) {
+        throw "not implemented";
+    },
+    several: function (keys) {
+        throw "not implemented";
+    }
 };
