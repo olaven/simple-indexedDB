@@ -1,3 +1,5 @@
-test('something', () => {
-    expect((2 + 2)).toEqual(4); 
+var indexedDB: IDBFactory = require("fake-indexeddb");
+
+test('sum should add two numbers', () => {
+    expect(true).toBe(true);  
 })

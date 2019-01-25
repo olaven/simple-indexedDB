@@ -8,10 +8,12 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --config webpack.config.js",
-    "test": "jest"
+    "test": "jest",
+    "dev": "webpack --watch | jest --watch"
   },
   "devDependencies": {
     "@types/jest": "^23.3.13",
+    "fake-indexeddb": "^2.0.4",
     "jest": "^23.6.0",
     "ts-jest": "^23.10.5",
     "ts-loader": "^5.3.3",
