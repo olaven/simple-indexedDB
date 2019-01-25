@@ -1,7 +1,7 @@
 # simple-indexedDB
 Api for doing simple and intuitive operations towards indexedDB. 
 
-__The code for this version is on the 1.0-branch. I am intending to rewrite the whole project.__
+__The code for the live version is on the 1.0-branch. I am going to rewrite the whole project on this branch.__
 
 ## Installation
 ``` yarn add simple-indexeddb ```
